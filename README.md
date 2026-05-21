@@ -16,7 +16,7 @@ To demonstrate the framework's capabilities, I built a Contact Book MVP that all
 1. **Clone the repository** to your local machine.
 2. **Rebuild the Autoloader:** Open your terminal in the project root and run:
    `composer dump-autoload`
-3. **Database Setup:** * Ensure your local MySQL server is running (default port 3306).
+3. **Database Setup:** Ensure your local MySQL server is running (default port 3306).
    * Create a new database named `contact_book_mvp`.
    * Run the following SQL to create the table:
      ```sql
@@ -28,9 +28,8 @@ To demonstrate the framework's capabilities, I built a Contact Book MVP that all
          tags VARCHAR(255) DEFAULT ''
      );
      ```
-4. **Start the Server:** Open your terminal in the project root and start the PHP development server:
-   `php -S localhost:8080 -t public`
-5. **View the App:** Open your browser and go to `http://localhost:8080/`.
+4. **Start the Server:** Open your terminal in the project root and start the PHP server
+5. **View the App:** Open your browser
 
 ## Application Routes
 The framework handles the following distinct routes via the `routes/web.php` file:
