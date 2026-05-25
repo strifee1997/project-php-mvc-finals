@@ -36,10 +36,7 @@ CREATE TABLE contacts (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 ```
-
-Start the Server: Open your terminal in the project root and start the PHP built-in server by running:
-php -S localhost:8000 -t public/
-
+Start the Server
 View the App: Open your browser and navigate to http://localhost:8080
 
 Application Routes
