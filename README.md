@@ -25,7 +25,7 @@ Configure the Database Connection: Open config/database.php and verify that the 
 
 Create the Database: Ensure your local MySQL server is running. Create a new database and run the following SQL to generate the table:
 
-SQL
+```SQL
 CREATE TABLE contacts (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -35,6 +35,7 @@ CREATE TABLE contacts (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+```
 
 Start the Server: Open your terminal in the project root and start the PHP built-in server by running:
 php -S localhost:8000 -t public/
