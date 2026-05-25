@@ -1,4 +1,5 @@
-Contact Book MVP - Custom PHP MVC Framework
+# Contact Book MVP - Custom PHP MVC Framework
+
 Overview
 This project is a lightweight, fully functional MVC (Model-View-Controller) PHP framework built completely from scratch. It features a custom routing system, an Active Record style ORM via a native PDO database engine, and strictly follows PSR-4 autoloading standards.
 
@@ -29,11 +30,9 @@ Create the Database: Ensure your local MySQL server is running. Create a new dat
 CREATE TABLE contacts (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL,
+    email VARCHAR(150) NOT NULL,
     phone VARCHAR(20) NOT NULL,
-    tags VARCHAR(255) DEFAULT '',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 ```
 Start the Server
