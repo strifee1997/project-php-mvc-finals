@@ -8,24 +8,31 @@ abstract class Model implements Findable, Persistable
 {
     protected string $table;
 
-    public function __construct(protected QueryBuilder $db) {}
+    public function __construct(public ?QueryBuilder $db = null) {}
 
-    public function find(int $id): array|false
+    public function find(int $id): mixed
     {
-        return $this->db->selectById($this->table, $id);
+        $stmt = $this->db->prepare("SELECT * FROM {$this->table} WHERE id = :id");
+        $stmt->execute(['id' => $id]);
+        
+        $stmt->setFetchMode(\PDO::FETCH_CLASS, static::class);
+        return $stmt->fetch();
     }
 
     public function all(): array
     {
-        return $this->db->selectAll($this->table);
+        $stmt = $this->db->prepare("SELECT * FROM {$this->table}");
+        $stmt->execute();
+        
+        return $stmt->fetchAll(\PDO::FETCH_CLASS, static::class); 
     }
 
-    public function save(array $data): bool
+    public function save(array $data = []): bool
     {
         return $this->db->insert($this->table, $data);
     }
 
-    public function update(int $id, array $data): bool
+    public function update(int $id, array $data = []): bool
     {
         return $this->db->updateById($this->table, $id, $data);
     }
@@ -34,8 +41,11 @@ abstract class Model implements Findable, Persistable
     {
         return $this->db->deleteById($this->table, $id);
     }
+    
     public function searchBy(string $column, string $keyword): array
     {
-        return $this->db->search($this->table, $column, $keyword);
+        $stmt = $this->db->prepare("SELECT * FROM {$this->table} WHERE {$column} LIKE :keyword");
+        $stmt->execute(['keyword' => '%' . $keyword . '%']);
+        return $stmt->fetchAll(\PDO::FETCH_CLASS, static::class);
     }
 }
