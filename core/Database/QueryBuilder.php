@@ -10,6 +10,11 @@ class QueryBuilder
 {
     public function __construct(private PDO $pdo) {}
 
+    public function prepare(string $sql): \PDOStatement|false
+    {
+        return $this->pdo->prepare($sql);
+    }
+
     public function selectAll(string $table): array
     {
         $stmt = $this->pdo->prepare("SELECT * FROM {$table}");
@@ -38,6 +43,7 @@ class QueryBuilder
         $stmt = $this->pdo->prepare("DELETE FROM {$table} WHERE id = :id");
         return $stmt->execute(['id' => $id]);
     }
+    
     public function updateById(string $table, int $id, array $data): bool
     {
         $setClause = [];
@@ -48,14 +54,13 @@ class QueryBuilder
         
         $sql = "UPDATE {$table} SET {$set} WHERE id = :id";
         
-        // Add the ID to our data array so PDO can bind it to the WHERE clause
         $data['id'] = $id;
         
         return $this->pdo->prepare($sql)->execute($data);
     }
+    
     public function search(string $table, string $column, string $keyword): array
     {
-        // Use the LIKE operator for partial matching and bind the keyword safely
         $stmt = $this->pdo->prepare("SELECT * FROM {$table} WHERE {$column} LIKE :keyword");
         $stmt->execute(['keyword' => '%' . $keyword . '%']);
         
