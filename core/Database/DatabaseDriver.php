@@ -8,5 +8,5 @@ use PDO;
 
 interface DatabaseDriver
 {
-    public function connect(array $config): PDO;
+    public function connect(array $config): PDO; //receives config (host, username, pass)nya return PDO
 }
