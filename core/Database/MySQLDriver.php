@@ -20,7 +20,6 @@ class MySQLDriver implements DatabaseDriver
                 PDO::ATTR_EMULATE_PREPARES   => false,
             ]);
         } catch (PDOException $e) {
-            // In a production app you'd log this, but for now we'll just kill the script
             die("Database connection failed: " . $e->getMessage());
         }
     }
