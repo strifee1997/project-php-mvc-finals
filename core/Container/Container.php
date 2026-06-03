@@ -10,32 +10,27 @@ use ReflectionClass;
 class Container
 {
     /** * Stores the registered bindings.
-     * @var array<string, callable|string>
+     *
+     *  @var array<string, callable|string>
      */
     private array $bindings = [];
 
-    // The single responsibility of this method is to register an interface to a concrete class
     public function bind(string $abstract, callable|string $concrete): void
     {
         $this->bindings[$abstract] = $concrete;
     }
 
-    // Resolves and instantiates the requested class
     public function resolve(string $abstract): mixed
     {
-        // 1. Check if we have a specific binding for this interface
         if (isset($this->bindings[$abstract])) {
             $concrete = $this->bindings[$abstract];
             
-            // If it's a callback, execute it
             if (is_callable($concrete)) {
                 return $concrete($this);
             }
-            // If it's a string, update the abstract to the concrete class name
             $abstract = $concrete;
         }
 
-        // 2. Use PHP Reflection to automatically wire dependencies
         try {
             $reflection = new ReflectionClass($abstract);
         } catch (Exception $e) {
@@ -48,12 +43,10 @@ class Container
 
         $constructor = $reflection->getConstructor();
 
-        // If there's no constructor, just return a new instance
         if (is_null($constructor)) {
             return new $abstract();
         }
 
-        // If there is a constructor, resolve its dependencies recursively
         $parameters = $constructor->getParameters();
         $dependencies = [];
 
