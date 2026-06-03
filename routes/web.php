@@ -4,12 +4,6 @@ declare(strict_types=1);
 
 use App\Controllers\ContactController;
 
-/**
- * --------------------------------------------------------------------------
- * Web Routes
- * --------------------------------------------------------------------------
- */
-
 // 1. READ / SEARCH
 $router->get('/', [ContactController::class, 'index']);
 $router->get('/contacts', [ContactController::class, 'index']);
@@ -18,9 +12,10 @@ $router->get('/contacts', [ContactController::class, 'index']);
 $router->get('/contacts/create', [ContactController::class, 'create']);
 $router->post('/contacts', [ContactController::class, 'store']);
 
-// 3. UPDATE (These dynamic {id} routes MUST go after the static routes above)
+// 3. UPDATE
 $router->get('/contacts/{id}/edit', [ContactController::class, 'edit']);
 $router->post('/contacts/{id}/edit', [ContactController::class, 'update']);
 
-// 4. DELETE
+// 4. DELET
 $router->post('/contacts/{id}/delete', [ContactController::class, 'delete']);
+$router->get('/about', [ContactController::class, 'about']);
